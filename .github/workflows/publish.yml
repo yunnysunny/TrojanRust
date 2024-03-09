@@ -74,7 +74,9 @@ jobs:
         toolchain: stable
 
     - name: Build
-      run: cargo build --release --locked
+      run: |
+        cargo build --release --locked
+        strip -s ${{ matrix.artifact_name }}
 
     - name: Upload
       uses: actions/upload-artifact@v2

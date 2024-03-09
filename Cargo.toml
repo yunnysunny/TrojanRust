@@ -52,3 +52,8 @@ path = "src/lib.rs"
 [[bin]]
 name = "trojan-rust"
 path = "src/main.rs"
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
