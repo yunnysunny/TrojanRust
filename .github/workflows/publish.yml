@@ -83,7 +83,7 @@ jobs:
     - name: Strip
       run: |
         which strip
-        strip -s ${{ matrix.artifact_name }}
+        /usr/bin/strip -s ${{ matrix.artifact_name }}
 
     - name: Upload
       uses: actions/upload-artifact@v2
