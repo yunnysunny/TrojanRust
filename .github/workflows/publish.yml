@@ -81,6 +81,7 @@ jobs:
       run: |
         cargo build --release --locked
     - name: Strip
+      if: runner.os == 'Linux'
       run: |
         which strip
         /usr/bin/strip -s ${{ matrix.artifact_name }}
