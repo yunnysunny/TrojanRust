@@ -44,6 +44,7 @@ jobs:
     name: Build for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         name: [
             linux,
@@ -67,6 +68,8 @@ jobs:
 
     - name: Setup protoc
       uses: arduino/setup-protoc@v1.1.2
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Rust Toolchain
       uses: actions-rs/toolchain@v1
