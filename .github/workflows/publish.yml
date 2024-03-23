@@ -94,8 +94,8 @@ jobs:
         name: ${{ matrix.asset_name }}
         path: ${{ matrix.artifact_name }}
   build-cross:
-    name: Build for ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build for ${{ matrix.name }}
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
