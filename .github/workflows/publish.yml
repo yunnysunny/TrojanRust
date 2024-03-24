@@ -128,24 +128,27 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    # - name: Rust Toolchain
-    #   uses: actions-rs/toolchain@v1
-    #   with:
-    #     profile: minimal
-    #     toolchain: stable
-
-    - name: Build binary
-      uses: houseabsolute/actions-rust-cross@v0
+    - name: Rust Toolchain
+      uses: actions-rs/toolchain@v1
       with:
+        profile: minimal
+        toolchain: 1.74.1
         target: ${{ matrix.platform.target }}
-        args: "--locked --release"
-        strip: true
+
+    - name: Build
+      run: |
+        cargo build --target ${{ matrix.platform.target }} --release --locked
+    - name: Strip
+      if: runner.os == 'Linux'
+      run: |
+        which strip
+          /usr/bin/strip -s ${{ matrix.platform.bin }}
 
     - name: Upload
       uses: actions/upload-artifact@v2
       with:
         name: trojan-rust-${{ matrix.platform.target }}
-        path: target/release/${{ matrix.platform.name }}
+        path: target/release/${{ matrix.platform.bin }}
   publish:
     runs-on: ubuntu-latest
     needs: [build, build-windows]
